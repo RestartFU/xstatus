@@ -1,0 +1,13 @@
+name: xstatus
+version: 0.1.0
+
+authors:
+  - Pr4gu3
+
+dependencies:
+  x11:
+    github: TamasSzekeres/x11-cr
+  logger:
+    github: Pr4gu3/logger.cr
+
+license: MIT
