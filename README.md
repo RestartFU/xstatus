@@ -1,5 +1,5 @@
 ## Configuration
-You may edit `src/config.cr` first to configure xstatus as you see fit.
+You may edit `src/config.cr` to configure xstatus as you see fit.
 ```crystal
 module Config
     extend self
