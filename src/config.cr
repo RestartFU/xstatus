@@ -25,6 +25,7 @@ module Config
         def initialize(@function, @format, @arguments); end
     end
     Default = [
+#                 FUNCION                        FORMAT   ARGUMENTS       
         Field.new(->text(String, Array(String)), "Pr4gu3", [""]),
         Field.new(->date(String, Array(String)), "%s", ["+%r"]),
     ]
