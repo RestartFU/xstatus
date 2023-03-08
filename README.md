@@ -3,6 +3,21 @@ You may edit `src/config.cr` to configure xstatus as you see fit.
 ```crystal
 module Config
     extend self
+    def run(args : Array(String)) : String
+        io = IO::Memory.new
+        Process.run(args.join(" "), shell: true, output: io)
+        io.to_s
+    end
+    
+    def text(s : String, a : Array(String)) : String
+        s
+    end
+    
+    def date(s : String, a : Array(String)) : String
+        outp = run(["date", a.join(" ")])
+        s.gsub("%s", outp).rstrip
+    end
+
     struct Field
         getter function : String, Array(String) -> String
         getter format : String
@@ -10,14 +25,14 @@ module Config
 
         def initialize(@function, @format, @arguments); end
     end
-    Default = [
-#                 FUNCTION                        FORMAT   ARGUMENTS       
-        Field.new(->text(String, Array(String)), "Pr4gu3", [""]),
-        Field.new(->date(String, Array(String)), "%s", ["+%r"]),
+
+    CONFIG = [
+#                           FUNCTION                                 FORMAT                       ARGUMENTS        
+        Field.new(->text(String, Array(String)),                     "Pr4gu3",                      [""]),
+        Field.new(->date(String, Array(String)),                     "%s",                          ["+%r"]),
     ]
 end
 ```
-I recommend you only edit `Default` and not create a new constant.
 ## Setup
 To install this project, run:
 ```

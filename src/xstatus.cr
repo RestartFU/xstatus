@@ -24,10 +24,12 @@ Signal::INT.trap do
     terminate dpy, 0
 end
 
+include Config
+
 while true
     begin
         status = [] of String
-        Config::Default.each do |c|
+        CONFIG.each do |c|
             status << c.function.call(c.format, c.arguments)
         end
 
