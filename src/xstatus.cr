@@ -19,16 +19,19 @@ class Program
         exit 0
     end
 
+    def trap_signals(signals : Array) 
+        signals.each do |s|
+            s.trap do
+                terminate 0
+            end
+        end
+    end
+
     include Config
     def run
     # This makes sure the status is set back to an empty String when
     # The program is terminated.
-    Signal.each do |s|
-        if s == Signal::CHLD; break end
-        s.trap do
-            terminate 0
-        end
-    end
+    trap_signals [Signal::INT, Signal::TERM, Signal::KILL, Signal::HUP]
 
     while true
         begin
