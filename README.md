@@ -36,7 +36,7 @@ end
 ## Setup
 To install this project, run:
 ```
-$ git clone https://github.com/Pr4gu3/xstatus
+$ git clone https://github.com/restartfu/xstatus
 $ cd xstatus
 $ sudo make install
 ```
