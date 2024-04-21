@@ -40,3 +40,7 @@ $ git clone https://github.com/restartfu/xstatus
 $ cd xstatus
 $ sudo make install
 ```
+Or one liner:
+```
+$ git clone https://github.com/restartfu/xstatus && cd xstatus && sudo make install
+```
