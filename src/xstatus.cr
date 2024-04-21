@@ -42,7 +42,7 @@ class Program
 
             set_status status.join(" | ")
         rescue ex
-            Logger.errorln ex; exit -1
+            Logger.fatalln ex
         end
         sleep 1.second
     end
