@@ -2,7 +2,7 @@ require "x11"
 require "logger"
 require "./config"
 
-class Program
+class XStatus
     getter dpy : X11::Display
 
     def initialize
@@ -27,7 +27,6 @@ class Program
         end
     end
 
-    include Config
     def run
     # This makes sure the status is set back to an empty String when
     # The program is terminated.
@@ -35,19 +34,26 @@ class Program
 
     while true
         begin
+            conf = Config.new()
             status = [] of String
-            CONFIG.each do |c|
-                status << c.function.call(c.format, c.arguments)
+            conf.commands.each do |c|
+                status << cmd("echo " + c).strip()
             end
 
-            set_status status.join(" | ")
+            set_status status.join(" #{conf.seperator} ")
         rescue ex
             Logger.fatalln ex
         end
         sleep 1.second
     end
     end
+
+    def cmd(str : String) : String
+        io = IO::Memory.new
+        Process.run(str, shell: true, output: io)
+        io.to_s
+    end
 end
 
-p = Program.new
+p = XStatus.new
 p.run

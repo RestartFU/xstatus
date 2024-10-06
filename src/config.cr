@@ -1,33 +1,38 @@
 require "io"
+require "toml"
+require "yaml"
 
-module Config
-    extend self
-    def run(args : Array(String)) : String
-        io = IO::Memory.new
-        Process.run(args.join(" "), shell: true, output: io)
-        io.to_s
-    end
-    
-    def text(s : String, a : Array(String)) : String
-        s
-    end
-    
-    def date(s : String, a : Array(String)) : String
-        outp = run(["date", a.join(" ")])
-        s.gsub("%s", outp).rstrip
-    end
+class Config
+    include YAML::Serializable
 
-    struct Field
-        getter function : String, Array(String) -> String
-        getter format : String
-        getter arguments : Array(String)
-
-        def initialize(@function, @format, @arguments); end
-    end
-
-    CONFIG = [
-#                           FUNCTION                                 FORMAT                       ARGUMENTS        
-        Field.new(->text(String, Array(String)),                     "Pr4gu3",                      [""]),
-        Field.new(->date(String, Array(String)),                     "%s",                          ["+%r"]),
+    getter default : String = %(seperator: "|"
+commands: [
+        "Restart", 
+        "$(date +%a) $(date +%b) $(date +%d)", 
+        "$(date +%r)",
     ]
+)
+
+    @[YAML::Field(key: "seperator")]
+    property seperator : String = "|"
+
+    @[YAML::Field(key: "commands")]
+    property commands : Array(String) = [""]
+
+    def initialize()
+        ENV["XSTATUS_CONFIG_PATH"] ||= ENV["HOME"] + "/.config/xstatus/config.toml"
+        path = ENV["XSTATUS_CONFIG_PATH"]
+        Dir.mkdir_p(File.dirname(path))
+
+        if !File.exists?(path)
+            File.touch(path)
+            File.write(path, @default)
+        end
+
+        content = File.read(path)
+        config = Config.from_yaml(content)
+
+        @seperator = config.seperator
+        @commands = config.commands
+    end
 end

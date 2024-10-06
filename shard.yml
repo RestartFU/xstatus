@@ -1,13 +1,16 @@
 name: xstatus
-version: 0.1.0
+version: 0.0.1
 
 authors:
-  - Pr4gu3
+  - RestartFU
 
 dependencies:
   x11:
     github: TamasSzekeres/x11-cr
   logger:
-    github: Pr4gu3/logger.cr
+    github: restartfu/logger.cr
+  toml:
+    github: crystal-community/toml.cr
+    branch: master
 
 license: MIT

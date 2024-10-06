@@ -1,0 +1,6 @@
+seperator: "|"
+commands: [
+    "Restart", 
+    "$(date +%a) $(date +%b) $(date +%d)", 
+    "$(date +%r)",
+]
