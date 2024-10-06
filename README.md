@@ -36,11 +36,11 @@ end
 ## Setup
 To install this project, run:
 ```
-$ git clone https://github.com/restartfu/xstatus
-$ cd xstatus
-$ sudo make install
+git clone https://github.com/restartfu/xstatus
+cd xstatus
+sudo make install
 ```
 Or one liner:
 ```
-$ git clone https://github.com/restartfu/xstatus && cd xstatus && sudo make install
+git clone https://github.com/restartfu/xstatus && cd xstatus && sudo make install
 ```
