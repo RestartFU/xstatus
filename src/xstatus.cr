@@ -19,7 +19,7 @@ class XStatus
         exit 0
     end
 
-    def trap_signals(signals : Array) 
+    def trap_signals(signals : Array)
         signals.each do |s|
             s.trap do
                 terminate 0
@@ -44,7 +44,7 @@ class XStatus
         rescue ex
             Logger.fatalln ex
         end
-        sleep 1.second
+        sleep conf.refresh_delay.millisecond
     end
     end
 

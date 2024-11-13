@@ -5,13 +5,16 @@ require "yaml"
 class Config
     include YAML::Serializable
 
-    getter default : String = %(seperator: "|"
+    getter default : String = %(refresh_delay: 1
+seperator: "|"
 commands: [
-        "Restart", 
-        "$(date +%a) $(date +%b) $(date +%d)", 
+        "Restart",
+        "$(date +%a) $(date +%b) $(date +%d)",
         "$(date +%r)",
     ]
 )
+    @[YAML::Field(key: "refresh_delay")]
+    property refresh_delay : Int64 = 1
 
     @[YAML::Field(key: "seperator")]
     property seperator : String = "|"
